@@ -43,4 +43,18 @@ class ShortenedUrl < ApplicationRecord
     end
     code
   end
+
+  def num_clicks
+    self.visitors.count
+  end
+  
+  def num_uniques
+    self.visitors.uniq.count
+  end
+  
+  def num_recent_uniques
+    self.visitors.uniq[-1]
+  
+  end
+    
 end
