@@ -21,9 +21,19 @@ class ShortenedUrl < ApplicationRecord
     foreign_key: :user_id,
     class_name: :User
 
+  
+  has_many :visits,
+    primary_key: :id, 
+    foreign_key: :short_url_id,
+    class_name: :Visit 
+
+  has_many :visitors,
+    through: :visits,
+    source: :users
+
 
   def self.create!(user, long_url) 
-    ShortenedUrl.new(long_url: long_url, user_id: user.id, short_url: ShortenedUrl.random_code) 
+    ShortenedUrl.new(long_url: long_url, user_id: user.id, short_url: ShortenedUrl.random_code).save 
   end
 
   def self.random_code
